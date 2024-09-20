@@ -21,7 +21,7 @@ def Home():
 
     if key == "Nombre Común":
       entrada = st.text_input("Escribe el nombre común en inglés:", "glucose")
-    elif:
+    elif key == "SMILES":
       entrada = st.text_input("Escribe el código SMILES:", "CCO")
     else:
       entrada = st.text_input("Escribe el código SMILES:", "IUPAC")
