@@ -10,13 +10,16 @@ st.sidebar.image("img/gpx4.png",
 #############################Pagina 1############################## 
 
 def Home():
-    st.markdown("# Input: Nombre común")
+    st.markdown("# Input: Nombre Común")
     st.sidebar.markdown("# Nombre Común")
-
-    st.markdown("## Nombre IUPAC")
+  
     entrada = st.text_input("Escribe el nombre de una molécula en inglés:", "glucose")
-    s= pcp.get_compounds(entrada,'name')
+    
+    st.markdown("## IUPAC")  
+    s = pcp.get_compounds(entrada,'name')
     comps_ds = get_compounds(entrada, 'name')
+    
+    #st.markdown("# Output:")  
     st.text(s[0].iupac_name)
     st.markdown("## Representación en SMILES isomérico")
     st.text(comps_ds[0].isomeric_smiles)
