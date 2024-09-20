@@ -13,13 +13,13 @@ def Home():
     st.markdown("# Input:")
     st.sidebar.markdown("# Nombre Común")
 
-    entrada = st.radio(
+    st.radio(
         "Escoge 👉",
         key="visibility",
         options=["Nombre Común", "SMILES", "IUPAC"],
     )
 
-    #entrada = st.text_input("Escribe el nombre común en inglés:", "glucose")
+    entrada = st.text_input("Escribe el nombre común en inglés:", "glucose")
 
   
     #if key == "Nombre Común":
