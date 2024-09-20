@@ -3,19 +3,51 @@ from pubchempy import get_compounds, Compound
 import sys
 import pubchempy as pcp
 
-st.title("Recursos para Química Orgánica")
-st.text("Autor: Jesus Alvarado")
+##############
+st.sidebar.image("img/gpx4.png",
+                 caption="Recursos para Química Orgánica")
 
-st.title("Nombre común a IUPAC")
-st.text("")
+#############################Pagina 1############################## 
 
-#moleculaA = "https://raw.githubusercontent.com/inefable12/QuimicaOrganica/refs/heads/main/moleculas/A_gluc.pdb"
-entrada = st.text_input("Escribe el nombre de una molécula en inglés:", "glucose")
-s= pcp.get_compounds(entrada,'name')
+def Home():
+    st.markdown("# A partir del nombre común")
+    st.sidebar.markdown("# Nombre Común")
 
-comps_ds = get_compounds(entrada, 'name')
-st.text("Nombre IUPAC")
-st.text(s[0].iupac_name)
-st.text("Representación en SMILES isomérico")
-st.text(comps_ds[0].isomeric_smiles)
-st.pyplot()
+    entrada = st.text_input("Escribe el nombre de una molécula en inglés:", "glucose")
+    s= pcp.get_compounds(entrada,'name')
+    
+    comps_ds = get_compounds(entrada, 'name')
+    st.text("Nombre IUPAC")
+    st.text(s[0].iupac_name)
+    st.text("Representación en SMILES isomérico")
+    st.text(comps_ds[0].isomeric_smiles)
+    st.pyplot()
+
+#############################Pagina 2############################## 
+
+def page2():
+    st.markdown("A partir del Código SMILES")
+    st.sidebar.markdown("SMILES")
+    
+    st.info('Generalidades')
+    st.write('''El.''')
+
+#############################Pagina 3##############################    
+
+def page3():
+  st.header('Más información', divider='rainbow')
+   
+  st.link_button("Github", "https://github.com/inefable12/")
+
+################################################################### 
+##########################Configuracion############################    
+###################################################################    
+
+page_names_to_funcs = {
+  "Nombre común": Home,
+  "IUPAC": page2,
+  "Otros recursos": page3,
+}
+
+selected_page = st.sidebar.selectbox("Selecciona una página", page_names_to_funcs.keys())
+page_names_to_funcs[selected_page]()
