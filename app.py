@@ -12,8 +12,19 @@ st.sidebar.image("img/gpx4.png",
 def Home():
     st.markdown("# Input:")
     st.sidebar.markdown("# Nombre Común")
-  
-    entrada = st.text_input("Escribe el nombre común en inglés:", "glucose")
+
+    st.radio(
+        "Escoge 👉",
+        key="visibility",
+        options=["Nombre Común", "SMILES", "IUPAC"],
+    )
+
+    if key == "Nombre Común":
+      entrada = st.text_input("Escribe el nombre común en inglés:", "glucose")
+    elif:
+      entrada = st.text_input("Escribe el código SMILES:", "CCO")
+    else:
+      entrada = st.text_input("Escribe el código SMILES:", "IUPAC")
     
     st.markdown("### IUPAC")  
     nombreiupac = pcp.get_compounds(entrada,'name')
