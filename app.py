@@ -14,6 +14,6 @@ entrada = st.text_input("Escribe el nombre de una molécula en inglés:", "gluco
 s= pcp.get_compounds(entrada,'name')
 
 comps_ds = get_compounds(entrada, 'name')
-st.text(comps_ds[0].isomeric_smiles)
-st.text(s[0].iupac_name)
+st.text("Nombre IUPAC", s[0].iupac_name)
+st.text("Representación en SMILES isomérico", comps_ds[0].isomeric_smiles)
 st.pyplot()
