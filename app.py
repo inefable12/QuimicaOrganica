@@ -27,6 +27,10 @@ def Home():
     masamolecular = get_compounds(entrada, 'name')
     st.text(masamolecular[0].exact_mass)
   
+    st.markdown("### Coeficiente de partición")
+    coeficientedeparticion = get_compounds(entrada, 'name')
+    st.text(coeficientedeparticion[0].xlogp)
+  
     st.pyplot()
 
 #############################Pagina 2############################## 
