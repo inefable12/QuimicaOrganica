@@ -46,8 +46,12 @@ def page2():
     st.markdown("A partir del Código SMILES")
     st.sidebar.markdown("SMILES")
     
-    st.info('Generalidades')
-    st.write('''El.''')
+    #st.info('Generalidades')
+    #st.write('''El.''')
+    entrada = st.text_input("Escribe el nombre SMILES: ", "C1=CC2=C(C3=C(C=CC=N3)C=C2)N=C1")
+
+    st.text(pcp.get_compounds(entrada, 'smiles'))
+
 
 #############################Pagina 3##############################    
 
