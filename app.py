@@ -17,9 +17,9 @@ def Home():
     s= pcp.get_compounds(entrada,'name')
     
     comps_ds = get_compounds(entrada, 'name')
-    st.text("## Nombre IUPAC")
+    st.markdown("## Nombre IUPAC")
     st.text(s[0].iupac_name)
-    st.text("## Representación en SMILES isomérico")
+    st.markdown("## Representación en SMILES isomérico")
     st.text(comps_ds[0].isomeric_smiles)
     st.pyplot()
 
