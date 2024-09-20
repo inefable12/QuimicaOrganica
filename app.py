@@ -10,10 +10,10 @@ st.sidebar.image("img/gpx4.png",
 #############################Pagina 1############################## 
 
 def Home():
-    st.markdown("# Input: Nombre Común")
+    st.markdown("# Input:")
     st.sidebar.markdown("# Nombre Común")
   
-    entrada = st.text_input("Escribe el nombre de una molécula en inglés:", "glucose")
+    entrada = st.text_input("Escribe el nombre común de la molécula en inglés:", "glucose")
     
     st.markdown("## IUPAC")  
     s = pcp.get_compounds(entrada,'name')
