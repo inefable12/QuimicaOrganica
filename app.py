@@ -13,16 +13,15 @@ def Home():
     st.markdown("# Input:")
     st.sidebar.markdown("# Nombre Común")
   
-    entrada = st.text_input("Escribe el nombre común de la molécula en inglés:", "glucose")
+    entrada = st.text_input("Escribe el nombre común en inglés:", "glucose")
     
-    st.markdown("## IUPAC")  
-    s = pcp.get_compounds(entrada,'name')
-    comps_ds = get_compounds(entrada, 'name')
+    st.markdown("### IUPAC")  
+    nombreiupac = pcp.get_compounds(entrada,'name')
+    st.text(nombreiupac[0].iupac_name)
     
-    #st.markdown("# Output:")  
-    st.text(s[0].iupac_name)
-    st.markdown("## Representación en SMILES isomérico")
-    st.text(comps_ds[0].isomeric_smiles)
+    st.markdown("### SMILES Isomérico")
+    smilesisomerico = get_compounds(entrada, 'name')
+    st.text(smilesisomerico[0].isomeric_smiles)
     st.pyplot()
 
 #############################Pagina 2############################## 
