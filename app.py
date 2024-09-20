@@ -48,7 +48,7 @@ def page2():
     
     entrada = st.text_input("Escribe el nombre SMILES: ", "C1=CC2=C(C3=C(C=CC=N3)C=C2)N=C1")
     st.markdown("### Identificado en PubChem con: ")
-    st.text(pcp.get_compounds[0](entrada, 'smiles'))
+    st.text(pcp.get_compounds(entrada, 'smiles'))
 
 
 #############################Pagina 3##############################    
