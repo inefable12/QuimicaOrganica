@@ -7,8 +7,8 @@ st.title("Recursos para Química Orgánica")
 st.text("Autor: Jesus Alvarado")
 
 #moleculaA = "https://raw.githubusercontent.com/inefable12/QuimicaOrganica/refs/heads/main/moleculas/A_gluc.pdb"
-entrada = st.text_input("A_gluc.pdb o B_gluc.pdb: ", "moleculaA")
-s= pcp.get_compounds('glucose','name')
+entrada = st.text_input("Escribe el nombre de una molécula en inglés:", "glucose")
+s= pcp.get_compounds(entrada,'name')
 
 st.text(s[0].iupac_name)
 st.pyplot()
