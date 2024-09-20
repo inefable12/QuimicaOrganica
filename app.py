@@ -22,6 +22,11 @@ def Home():
     st.markdown("### SMILES Isomérico")
     smilesisomerico = get_compounds(entrada, 'name')
     st.text(smilesisomerico[0].isomeric_smiles)
+
+    st.markdown("### Masa molecular (g/mol)")
+    masamolecular = get_compounds(entrada, 'name')
+    st.text(masamolecular[0].exact_mass)
+  
     st.pyplot()
 
 #############################Pagina 2############################## 
