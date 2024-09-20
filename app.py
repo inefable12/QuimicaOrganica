@@ -10,5 +10,5 @@ st.text("Autor: Jesus Alvarado")
 entrada = st.text_input("A_gluc.pdb o B_gluc.pdb: ", "moleculaA")
 s= pcp.get_compounds('glucose','name')
 
-print(s[0].iupac_name)
+st.text(s[0].iupac_name)
 st.pyplot()
