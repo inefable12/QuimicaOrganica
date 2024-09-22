@@ -62,11 +62,10 @@ def page2():
 #############################Pagina 3##############################    
 
 def page3():
-  st.header('Visualización en 3D', divider='rainbow', 'https://github.com/inefable12')
+  st.header('Visualización en 3D', divider='rainbow')
    
   st.link_button("Adaptación de José Manuel Nápoles Duarte", "https://github.com/napoles-uach")
 
-  #st.title('SMILES  + RDKit + Py3DMOL :smiley:')
   def showm(smi, style='stick'):
       mol = Chem.MolFromSmiles(smi)
       mol = Chem.AddHs(mol)
@@ -74,7 +73,7 @@ def page3():
       AllChem.MMFFOptimizeMolecule(mol, maxIters=200)
       mblock = Chem.MolToMolBlock(mol)
   
-      view = py3Dmol.view(width=400, height=400)
+      view = py3Dmol.view(width=350, height=350)
       view.addModel(mblock, 'mol')
       view.setStyle({style:{}})
       view.zoomTo()
@@ -98,10 +97,10 @@ def page3():
   #source_code = HtmlFile.read() 
   c1,c2=st.columns(2)
   with c1:
-    st.write('Molecule 2D :frog:')
+    st.write('Molecule 2D :smiley:')
     st.image('mol.png')
   with c2:
-    st.write('Molecule 3D :gift:')
+    st.write('Molecule 3D :frog:')
     showm(compound_smiles)
 
 ################################################################### 
@@ -114,5 +113,5 @@ page_names_to_funcs = {
   "Vista 3D": page3,
 }
 
-selected_page = st.sidebar.selectbox("Selecciona una página", page_names_to_funcs.keys())
+selected_page = st.sidebar.selectbox("Tipo de entrada", page_names_to_funcs.keys())
 page_names_to_funcs[selected_page]()
