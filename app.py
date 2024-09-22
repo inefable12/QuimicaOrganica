@@ -43,6 +43,8 @@ def Home():
     m = Chem.MolFromSmiles(st.text(smilesisomerico[0].isomeric_smiles))    
     Draw.MolToFile(m,'mol.png')
     #st.pyplot()
+    st.write('Molecule 2D :smiley:')
+    st.image('mol.png')
 
 #############################Pagina 2############################## 
 
