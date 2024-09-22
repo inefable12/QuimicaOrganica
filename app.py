@@ -40,11 +40,9 @@ def Home():
     st.text(coeficientedeparticion[0].xlogp)
   
     st.markdown("### Representación simplificada")
-    m = Chem.MolFromSmiles(smilesisomerico[0].isomeric_smiles)    
+    m = Chem.MolFromSmiles(st.text(smilesisomerico[0].isomeric_smiles))    
     Draw.MolToFile(m,'mol.png')
     st.pyplot()
-
-
 
 #############################Pagina 2############################## 
 
