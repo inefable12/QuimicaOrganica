@@ -17,7 +17,7 @@ st.sidebar.image("img/gpx4.png",
 #############################Pagina 1############################## 
 
 def Home():
-    st.header('# Input:', divider='rainbow')
+    st.header('Input:', divider='rainbow')
     st.sidebar.markdown("# Nombre Común")
 
     entrada = st.text_input("Escribe el nombre común en inglés:", "glucose")
@@ -50,12 +50,8 @@ def Home():
 #############################Pagina 2############################## 
 
 def page2():
-    st.header('# Input :smiley:', divider='rainbow')
-    st.sidebar.markdown("""# SMILES:
-
-    Si tienes el código SMILES selecciona esta opción
-                        
-                        """)
+    st.header('Input :smiley:', divider='rainbow')
+    st.sidebar.markdown("# Simplified Molecular Input Line Entry System")
     
     entrada = st.text_input("Escribe el nombre SMILES: ", "C1=CC2=C(C3=C(C=CC=N3)C=C2)N=C1")
     st.markdown("### PubChem ID:")
@@ -68,7 +64,7 @@ def page2():
 def page3():
   st.header('Visualización en 3D', divider='rainbow')
    
-  st.link_button("Adaptación de José Manuel Nápoles Duarte", "https://github.com/napoles-uach")
+  #st.link_button("Adaptación de José Manuel Nápoles Duarte", "https://github.com/napoles-uach")
 
   def showm(smi, style='stick'):
       mol = Chem.MolFromSmiles(smi)
@@ -90,7 +86,7 @@ def page3():
       #f.write(t.endjs)
       #f.close()
   
-  compound_smiles=st.text_input('SMILES please','FCCC(=O)[O-]')
+  compound_smiles=st.text_input('Ingresa tu código SMILES','FCCC(=O)[O-]')
   m = Chem.MolFromSmiles(compound_smiles)
   
   Draw.MolToFile(m,'mol.png')
