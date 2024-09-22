@@ -98,7 +98,7 @@ def page3():
   #source_code = HtmlFile.read() 
   c1,c2=st.columns(2)
   with c1:
-    st.write('Molecule 2D :science:')
+    st.write('Molecule 2D :hugginface:')
     st.image('mol.png')
   with c2:
     st.write('Molecule 3D :gift:')
