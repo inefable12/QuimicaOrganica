@@ -17,7 +17,7 @@ st.sidebar.image("img/gpx4.png",
 #############################Pagina 1############################## 
 
 def Home():
-    st.markdown("# Input:")
+    st.header('# Input:', divider='rainbow')
     st.sidebar.markdown("# Nombre Común")
 
     entrada = st.text_input("Escribe el nombre común en inglés:", "glucose")
@@ -50,8 +50,12 @@ def Home():
 #############################Pagina 2############################## 
 
 def page2():
-    st.markdown("# Input :smiley:")
-    st.sidebar.markdown("# SMILES")
+    st.header('# Input :smiley:', divider='rainbow')
+    st.sidebar.markdown("""# SMILES:
+
+    Si tienes el código SMILES selecciona esta opción
+                        
+                        """)
     
     entrada = st.text_input("Escribe el nombre SMILES: ", "C1=CC2=C(C3=C(C=CC=N3)C=C2)N=C1")
     st.markdown("### PubChem ID:")
