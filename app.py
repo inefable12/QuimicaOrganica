@@ -62,7 +62,7 @@ def page2():
 #############################Pagina 3##############################    
 
 def page3():
-  st.header('Visualización en 3D', divider='rainbow', "https://github.com/inefable12")
+  st.header('Visualización en 3D', divider='rainbow', 'https://github.com/inefable12')
    
   st.link_button("Adaptación de José Manuel Nápoles Duarte", "https://github.com/napoles-uach")
 
