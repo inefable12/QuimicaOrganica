@@ -22,13 +22,6 @@ def Home():
     st.sidebar.markdown("Trivial name, non-systematic name for a chemical substance, son otras denominaciones en inglés")
 
     entrada = st.text_input("Escribe el nombre común en inglés:", "glucose")
-
-    #if key == "Nombre Común":
-    #  entrada = st.text_input("Escribe el nombre común en inglés:", "glucose")
-    #elif key == "SMILES":
-    #  entrada = st.text_input("Escribe el código SMILES:", "CCO")
-    #else:
-    #  entrada = st.text_input("Escribe el código SMILES:", "IUPAC")
     
     st.markdown("### IUPAC")  
     nombreiupac = pcp.get_compounds(entrada,'name')
@@ -46,8 +39,11 @@ def Home():
     coeficientedeparticion = get_compounds(entrada, 'name')
     st.text(coeficientedeparticion[0].xlogp)
   
+    st.markdown("### Representación simplificada")
+    m = Chem.MolFromSmiles(smilesisomerico)    
+    Draw.MolToFile(m,'mol.png')
     st.pyplot()
-
+  
 #############################Pagina 2############################## 
 
 def page2():
