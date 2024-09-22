@@ -40,7 +40,7 @@ def Home():
     st.text(coeficientedeparticion[0].xlogp)
 
     st.markdown("### PubChem ID:")
-    st.text(pcp.get_compounds(entrada, 'smiles'))
+    st.text(pcp.get_compounds(entrada, 'name'))
 
 #############################Pagina 2############################## 
 
