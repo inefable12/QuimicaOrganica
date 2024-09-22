@@ -39,8 +39,9 @@ def Home():
     coeficientedeparticion = get_compounds(entrada, 'name')
     st.text(coeficientedeparticion[0].xlogp)
 
-    #st.markdown("### PubChem ID:")
-    #st.text(pcp.get_compounds(entrada, 'name'))
+    st.markdown("### PubChem ID")
+    id_pubchem = pcp.get_compounds(entrada, 'name')
+    st.text(id_pubchem)
 
 #############################Pagina 2############################## 
 
