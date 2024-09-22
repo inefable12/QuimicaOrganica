@@ -18,7 +18,9 @@ st.sidebar.image("img/gpx4.png",
 
 def Home():
     st.header('Input :cat:', divider='rainbow')
-    st.sidebar.markdown("# Nombre Común")
+    st.sidebar.markdown("""# Nombre clásico:
+    Trivial name, non-systematic name for a chemical substance, son otras denominaciones en inglés
+    """)
 
     entrada = st.text_input("Escribe el nombre común en inglés:", "glucose")
 
@@ -65,7 +67,8 @@ def page2():
 
 def page3():
   st.header('Visualización en 3D 🍫', divider='rainbow')
-   
+  st.sidebar.markdown("# Simpl")
+  st.sidebar.markdown(Simplified Molecular Input Line Entry )
   #st.link_button("Adaptación de José Manuel Nápoles Duarte", "https://github.com/napoles-uach")
 
   def showm(smi, style='stick'):
