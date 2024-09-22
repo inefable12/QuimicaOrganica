@@ -43,6 +43,13 @@ def Home():
     id_pubchem = pcp.get_compounds(entrada, 'name')
     st.text(id_pubchem)
 
+    st.markdown("### Representación simplificada")
+    m0 = Chem.MolFromSmiles(entrada)    
+    Draw.MolToFile(m0,'mol0.png')
+    #st.pyplot()
+    st.write('Molecule 2D :smiley:')
+    st.image('mol0.png')
+
 #############################Pagina 2############################## 
 
 def page2():
