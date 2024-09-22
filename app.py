@@ -42,7 +42,7 @@ def Home():
     st.markdown("### Representación simplificada")
     m = Chem.MolFromSmiles(st.text(smilesisomerico[0].isomeric_smiles))    
     Draw.MolToFile(m,'mol.png')
-    st.pyplot()
+    #st.pyplot()
 
 #############################Pagina 2############################## 
 
