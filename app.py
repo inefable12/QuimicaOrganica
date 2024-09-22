@@ -62,7 +62,7 @@ def page2():
 #############################Pagina 3##############################    
 
 def page3():
-  st.header('Visualización en 3D', divider='rainbow')
+  st.header('Visualización en 3D', divider='rainbow', "https://github.com/inefable12")
    
   st.link_button("Adaptación de José Manuel Nápoles Duarte", "https://github.com/napoles-uach")
 
@@ -87,7 +87,7 @@ def page3():
       #f.write(t.endjs)
       #f.close()
   
-  compound_smiles=st.text_input('SMILES please','CC')
+  compound_smiles=st.text_input('SMILES please','CCC(=O)[O-]')
   m = Chem.MolFromSmiles(compound_smiles)
   
   Draw.MolToFile(m,'mol.png')
@@ -103,7 +103,6 @@ def page3():
   with c2:
     st.write('Molecule 3D :gift:')
     showm(compound_smiles)
-
 
 ################################################################### 
 ##########################Configuracion############################    
