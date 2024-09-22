@@ -62,11 +62,11 @@ def page2():
 #############################Pagina 3##############################    
 
 def page3():
-  st.header('Más información', divider='rainbow')
+  st.header('Visualización en 3D', divider='rainbow')
    
-  st.link_button("Github", "https://github.com/inefable12/")
+  st.link_button("Adaptación de José Manuel Nápoles Duarte", "https://github.com/napoles-uach")
 
-  st.title('SMILES  + RDKit + Py3DMOL :smiley:')
+  #st.title('SMILES  + RDKit + Py3DMOL :smiley:')
   def showm(smi, style='stick'):
       mol = Chem.MolFromSmiles(smi)
       mol = Chem.AddHs(mol)
@@ -98,9 +98,10 @@ def page3():
   #source_code = HtmlFile.read() 
   c1,c2=st.columns(2)
   with c1:
-    st.write('Molecule :coffee:')
+    st.write('Molecule 2D :coffee:')
     st.image('mol.png')
   with c2:
+    st.write('Molecule 3D :coffee:')
     showm(compound_smiles)
 
 
@@ -111,7 +112,7 @@ def page3():
 page_names_to_funcs = {
   "Nombre común": Home,
   "IUPAC": page2,
-  "Otros recursos": page3,
+  "Vista 3D": page3,
 }
 
 selected_page = st.sidebar.selectbox("Selecciona una página", page_names_to_funcs.keys())
