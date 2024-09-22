@@ -3,6 +3,13 @@ from pubchempy import get_compounds, Compound
 import sys
 import pubchempy as pcp
 
+import streamlit.components.v1 as components
+import py3Dmol
+from stmol import showmol
+from rdkit import Chem
+from rdkit.Chem import Draw
+from rdkit.Chem import AllChem
+
 ##############
 st.sidebar.image("img/gpx4.png",
                  caption="Recursos para Química Orgánica")
@@ -58,6 +65,44 @@ def page3():
   st.header('Más información', divider='rainbow')
    
   st.link_button("Github", "https://github.com/inefable12/")
+
+  st.title('SMILES  + RDKit + Py3DMOL :smiley:')
+  def showm(smi, style='stick'):
+      mol = Chem.MolFromSmiles(smi)
+      mol = Chem.AddHs(mol)
+      AllChem.EmbedMolecule(mol)
+      AllChem.MMFFOptimizeMolecule(mol, maxIters=200)
+      mblock = Chem.MolToMolBlock(mol)
+  
+      view = py3Dmol.view(width=400, height=400)
+      view.addModel(mblock, 'mol')
+      view.setStyle({style:{}})
+      view.zoomTo()
+      #view.show()
+      #view.render()
+      showmol(view)
+      #t =view.js()
+      #f = open('viz.html', 'w')
+      #f.write(t.startjs)
+      #f.write(t.endjs)
+      #f.close()
+  
+  compound_smiles=st.text_input('SMILES please','CC')
+  m = Chem.MolFromSmiles(compound_smiles)
+  
+  Draw.MolToFile(m,'mol.png')
+  
+  
+  
+  #HtmlFile = open("viz.html", 'r', encoding='utf-8')
+  #source_code = HtmlFile.read() 
+  c1,c2=st.columns(2)
+  with c1:
+    st.write('Molecule :coffee:')
+    st.image('mol.png')
+  with c2:
+    showm(compound_smiles)
+
 
 ################################################################### 
 ##########################Configuracion############################    
