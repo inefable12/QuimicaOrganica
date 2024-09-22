@@ -50,7 +50,7 @@ def Home():
 #############################Pagina 2############################## 
 
 def page2():
-    st.markdown("# Input:")
+    st.markdown("# Input :smiley:")
     st.sidebar.markdown("# SMILES")
     
     entrada = st.text_input("Escribe el nombre SMILES: ", "C1=CC2=C(C3=C(C=CC=N3)C=C2)N=C1")
@@ -86,7 +86,7 @@ def page3():
       #f.write(t.endjs)
       #f.close()
   
-  compound_smiles=st.text_input('SMILES please','CCC(=O)[O-]')
+  compound_smiles=st.text_input('SMILES please','FCCC(=O)[O-]')
   m = Chem.MolFromSmiles(compound_smiles)
   
   Draw.MolToFile(m,'mol.png')
@@ -109,7 +109,7 @@ def page3():
 
 page_names_to_funcs = {
   "Nombre común": Home,
-  "IUPAC": page2,
+  "SMILES": page2,
   "Vista 3D": page3,
 }
 
