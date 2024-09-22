@@ -38,14 +38,6 @@ def Home():
     st.markdown("### Coeficiente de partición")
     coeficientedeparticion = get_compounds(entrada, 'name')
     st.text(coeficientedeparticion[0].xlogp)
-  
-    st.markdown("### Representación simplificada")
-    bidimensional = str(st.text(smilesisomerico[0].isomeric_smiles))
-    m1 = Chem.MolFromSmiles(bidimensional)    
-    Draw.MolToFile(m1,'mol.png')
-    #st.pyplot()
-    st.write('Molecule 2D :smiley:')
-    st.image('mol.png')
 
 #############################Pagina 2############################## 
 
@@ -57,8 +49,15 @@ def page2():
     entrada = st.text_input("Escribe el nombre SMILES: ", "C1=CC2=C(C3=C(C=CC=N3)C=C2)N=C1")
     st.markdown("### PubChem ID:")
     st.text(pcp.get_compounds(entrada, 'smiles'))
+
+    st.markdown("### Representación simplificada")
+    m1 = Chem.MolFromSmiles(entrada)    
+    Draw.MolToFile(m1,'mol1.png')
+    #st.pyplot()
+    st.write('Molecule 2D :smiley:')
+    st.image('mol.png')
   
-    st.pyplot()
+    #st.pyplot()
 
 #############################Pagina 3##############################    
 
