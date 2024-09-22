@@ -48,7 +48,8 @@ def page2():
     
     entrada = st.text_input("Escribe el nombre SMILES: ", "C1=CC2=C(C3=C(C=CC=N3)C=C2)N=C1")
     st.markdown("### PubChem ID:")
-    st.text(pcp.get_compounds(entrada, 'smiles'))
+    identificador = pcp.get_compounds(entrada, 'smiles')
+    st.text(identificador)
 
     st.markdown("### Nombre IUPAC")  
     nombreiupac = pcp.get_compounds(entrada,'name')
