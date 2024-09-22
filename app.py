@@ -65,8 +65,8 @@ def page2():
 
 def page3():
   st.header('Visualización en 3D 🍫', divider='rainbow')
-  st.sidebar.markdown("# Simpl")
-  st.sidebar.markdown("Simplified Molecular Input Line Entry")
+  st.sidebar.markdown("# 1D 🖙 3D")
+  st.sidebar.markdown("Generación de estructura tridimensional a partir del código SMILES")
   #st.link_button("Adaptación de José Manuel Nápoles Duarte", "https://github.com/napoles-uach")
 
   def showm(smi, style='stick'):
@@ -93,9 +93,7 @@ def page3():
   m = Chem.MolFromSmiles(compound_smiles)
   
   Draw.MolToFile(m,'mol.png')
-  
-  
-  
+    
   #HtmlFile = open("viz.html", 'r', encoding='utf-8')
   #source_code = HtmlFile.read() 
   c1,c2=st.columns(2)
