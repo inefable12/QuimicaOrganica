@@ -40,8 +40,9 @@ def Home():
     st.text(coeficientedeparticion[0].xlogp)
   
     st.markdown("### Representación simplificada")
-    m = Chem.MolFromSmiles(st.text(smilesisomerico[0].isomeric_smiles))    
-    Draw.MolToFile(m,'mol.png')
+    bidimensional = st.text(smilesisomerico[0].isomeric_smiles)
+    m1 = Chem.MolFromSmiles(bidimensional)    
+    Draw.MolToFile(m1,'mol.png')
     #st.pyplot()
     st.write('Molecule 2D :smiley:')
     st.image('mol.png')
