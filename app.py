@@ -50,6 +50,10 @@ def page2():
     st.markdown("### PubChem ID:")
     st.text(pcp.get_compounds(entrada, 'smiles'))
 
+    st.markdown("### Nombre IUPAC")  
+    nombreiupac = pcp.get_compounds(entrada,'name')
+    st.text(nombreiupac[0].iupac_name)
+
     st.markdown("### Representación simplificada")
     m1 = Chem.MolFromSmiles(entrada)    
     Draw.MolToFile(m1,'mol1.png')
