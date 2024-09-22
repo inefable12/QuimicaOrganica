@@ -44,7 +44,7 @@ def Home():
     st.text(id_pubchem)
 
     st.markdown("### Representación simplificada")
-    m0 = Chem.MolFromSmiles(entrada)    
+    m0 = Chem.MolFromSmiles(smilesisomerico[0].isomeric_smiles)    
     Draw.MolToFile(m0,'mol0.png')
     #st.pyplot()
     st.write('Molecule 2D :smiley:')
