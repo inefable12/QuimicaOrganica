@@ -40,7 +40,7 @@ def Home():
     st.text(coeficientedeparticion[0].xlogp)
   
     st.markdown("### Representación simplificada")
-    bidimensional = st.text(smilesisomerico[0].isomeric_smiles)
+    bidimensional = str(st.text(smilesisomerico[0].isomeric_smiles))
     m1 = Chem.MolFromSmiles(bidimensional)    
     Draw.MolToFile(m1,'mol.png')
     #st.pyplot()
@@ -66,7 +66,7 @@ def page3():
   st.header('Visualización en 3D 🍫', divider='rainbow')
   st.sidebar.markdown("# 1D 🖙 3D")
   st.sidebar.markdown("Generación de estructura tridimensional a partir del código SMILES")
-  #st.link_button("Adaptación de José Manuel Nápoles Duarte", "https://github.com/napoles-uach")
+  #st.link_button("Referencia", "https://github.com/napoles-uach")
 
   def showm(smi, style='stick'):
       mol = Chem.MolFromSmiles(smi)
