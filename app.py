@@ -64,7 +64,7 @@ def page2():
     Draw.MolToFile(m1,'mol1.png')
     #st.pyplot()
     st.write('Molecule 2D :smiley:')
-    st.image('mol.png')
+    st.image('mol1.png')
   
     #st.pyplot()
 
