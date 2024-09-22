@@ -17,7 +17,7 @@ st.sidebar.image("img/gpx4.png",
 #############################Pagina 1############################## 
 
 def Home():
-    st.header('Input :Cat Face:', divider='rainbow')
+    st.header('Input :cat:', divider='rainbow')
     st.sidebar.markdown("# Nombre Común")
 
     entrada = st.text_input("Escribe el nombre común en inglés:", "glucose")
