@@ -56,7 +56,7 @@ def page2():
     st.text(identificador)
 
     st.markdown("### Nombre IUPAC")  
-    nombreiupac = pcp.get_compounds(identificador,'smiles')
+    nombreiupac = pcp.get_compounds(entrada,'smiles')
     st.text(nombreiupac[0].iupac_name)
 
     st.markdown("### Representación simplificada")
