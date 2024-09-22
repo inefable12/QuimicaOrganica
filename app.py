@@ -18,9 +18,8 @@ st.sidebar.image("img/gpx4.png",
 
 def Home():
     st.header('Input :cat:', divider='rainbow')
-    st.sidebar.markdown("""# Nombre clásico:
-    Trivial name, non-systematic name for a chemical substance, son otras denominaciones en inglés
-    """)
+    st.sidebar.markdown("# Nombre clásico:")
+    st.sidebar.markdown("Trivial name, non-systematic name for a chemical substance, son otras denominaciones en inglés")
 
     entrada = st.text_input("Escribe el nombre común en inglés:", "glucose")
 
@@ -53,9 +52,8 @@ def Home():
 
 def page2():
     st.header('Input :smiley:', divider='rainbow')
-    st.sidebar.markdown("""# Simplified Molecular Input Line Entry System
-                           Sistema de introducción molecular lineal simplificada
-                           """)
+    st.sidebar.markdown("# Simplified Molecular Input Line Entry System")
+    st.sidebar.markdown("Sistema de introducción molecular lineal simplificada")
     
     entrada = st.text_input("Escribe el nombre SMILES: ", "C1=CC2=C(C3=C(C=CC=N3)C=C2)N=C1")
     st.markdown("### PubChem ID:")
