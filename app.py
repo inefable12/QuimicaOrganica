@@ -17,7 +17,7 @@ st.sidebar.image("img/gpx4.png",
 #############################Pagina 1############################## 
 
 def Home():
-    st.header('Input:', divider='rainbow')
+    st.header('Input :Cat Face:', divider='rainbow')
     st.sidebar.markdown("# Nombre Común")
 
     entrada = st.text_input("Escribe el nombre común en inglés:", "glucose")
@@ -52,7 +52,7 @@ def Home():
 def page2():
     st.header('Input :smiley:', divider='rainbow')
     st.sidebar.markdown("""# Simplified Molecular Input Line Entry System
-                           Sistema de introducción lineal molecular simplificada
+                           Sistema de introducción molecular lineal simplificada
                            """)
     
     entrada = st.text_input("Escribe el nombre SMILES: ", "C1=CC2=C(C3=C(C=CC=N3)C=C2)N=C1")
