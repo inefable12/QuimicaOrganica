@@ -69,20 +69,15 @@ def page2():
     st.markdown("### Representación simplificada")
     m1 = Chem.MolFromSmiles(entrada)    
     Draw.MolToFile(m1,'mol1.png')
-    #st.pyplot()
     st.write('Molecule 2D :smiley:')
     st.image('mol1.png')
   
-    #st.pyplot()
-
 #############################Pagina 3##############################    
 
 def page3():
   st.header('Visualización en 3D 🍫', divider='rainbow')
   st.sidebar.markdown("# 1D 🖙 3D")
   st.sidebar.markdown("Generación de estructura tridimensional a partir del código SMILES")
-  #st.link_button("Referencia", "https://github.com/napoles-uach")
-
   def showm(smi, style='stick'):
       mol = Chem.MolFromSmiles(smi)
       mol = Chem.AddHs(mol)
@@ -94,22 +89,12 @@ def page3():
       view.addModel(mblock, 'mol')
       view.setStyle({style:{}})
       view.zoomTo()
-      #view.show()
-      #view.render()
       showmol(view)
-      #t =view.js()
-      #f = open('viz.html', 'w')
-      #f.write(t.startjs)
-      #f.write(t.endjs)
-      #f.close()
   
   compound_smiles=st.text_input('Ingresa tu código SMILES','FCCC(=O)[O-]')
   m = Chem.MolFromSmiles(compound_smiles)
   
   Draw.MolToFile(m,'mol.png')
-    
-  #HtmlFile = open("viz.html", 'r', encoding='utf-8')
-  #source_code = HtmlFile.read() 
   c1,c2=st.columns(2)
   with c1:
     st.write('Molecule 2D :smiley:')
