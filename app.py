@@ -12,7 +12,7 @@ from rdkit.Chem import AllChem
 
 ##############
 st.sidebar.image("img/gpx4.png",
-                 caption="Recursos para Química Orgánica")
+                 caption="Jesus Alvarado-Huayhuaz")
 
 #############################Pagina 1############################## 
 
