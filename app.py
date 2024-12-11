@@ -17,7 +17,7 @@ st.sidebar.image("img/gpx4.png",
 #############################Pagina 1############################## 
 
 def Home():
-    st.header('Input :cat:', divider='rainbow')
+    st.header('Descriptores moleculares :cat:', divider='rainbow')
     st.sidebar.markdown("# Nombre clásico:")
     st.sidebar.markdown("Trivial name, non-systematic name for a chemical substance, son otras denominaciones en inglés")
 
