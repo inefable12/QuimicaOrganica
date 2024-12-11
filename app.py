@@ -17,7 +17,7 @@ st.sidebar.image("img/gpx4.png",
 #############################Pagina 1############################## 
 
 def Home():
-    st.header('Descriptores moleculares :cat:', divider='rainbow')
+    st.header('De nombre común a 2D :cat:', divider='rainbow')
     st.sidebar.markdown("# Nombre clásico:")
     st.sidebar.markdown("Trivial name, non-systematic name for a chemical substance, son otras denominaciones en inglés")
 
@@ -53,7 +53,7 @@ def Home():
 #############################Pagina 2############################## 
 
 def page2():
-    st.header('Input :smiley:', divider='rainbow')
+    st.header('De SMILES a 2D :smiley:', divider='rainbow')
     st.sidebar.markdown("# Simplified Molecular Input Line Entry System")
     st.sidebar.markdown("Sistema de introducción molecular lineal simplificada")
     
@@ -75,7 +75,7 @@ def page2():
 #############################Pagina 3##############################    
 
 def page3():
-  st.header('Visualización en 3D 🍫', divider='rainbow')
+  st.header('De SMILES a visualización 3D 🍫', divider='rainbow')
   st.sidebar.markdown("# 1D 🖙 3D")
   st.sidebar.markdown("Generación de estructura tridimensional a partir del código SMILES")
   def showm(smi, style='stick'):
