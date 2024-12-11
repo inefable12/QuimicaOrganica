@@ -113,5 +113,5 @@ page_names_to_funcs = {
   "Vista 3D": page3,
 }
 
-selected_page = st.sidebar.selectbox("Tipo de entrada", page_names_to_funcs.keys())
+selected_page = st.sidebar.selectbox("Tipo de Convertidor", page_names_to_funcs.keys())
 page_names_to_funcs[selected_page]()
