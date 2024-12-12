@@ -95,9 +95,18 @@ def page3():
   m = Chem.MolFromSmiles(compound_smiles)
   
   Draw.MolToFile(m,'mol.png')
+
+  c1,c2=st.columns(2)
+  with c1:
+    st.write('Molecule 2D :smiley:')
+    st.image('mol.png')
+  with c2:
+    st.write('Molecule 3D :frog:')
+    showm(compound_smiles)
+
   #botón de descarga 
   with open('mol.png', 'rb') as f:
-      st.download_button('Descargar 2D (PNG)', f, file_name='mol.png', mime='image/png')
+      st.download_button('Descargar 2D (en formato PNG)', f, file_name='mol.png', mime='image/png')
 
   mol_3d = Chem.MolFromSmiles(compound_smiles)
   mol_3d = Chem.AddHs(mol_3d)
@@ -108,15 +117,7 @@ def page3():
       f.write(mol_block)
   #botón de descarga 
   with open('mol3d.mol', 'rb') as f:
-    st.download_button('Descargar 3D (MOL)', f, file_name='mol3d.mol', mime='chemical/x-mdl-molfile')
-
-  c1,c2=st.columns(2)
-  with c1:
-    st.write('Molecule 2D :smiley:')
-    st.image('mol.png')
-  with c2:
-    st.write('Molecule 3D :frog:')
-    showm(compound_smiles)
+    st.download_button('Descargar 3D (en formato MOL)', f, file_name='mol3d.mol', mime='chemical/x-mdl-molfile')
 
 ################################################################### 
 ##########################Configuracion############################    
