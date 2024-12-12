@@ -95,6 +95,10 @@ def page3():
   m = Chem.MolFromSmiles(compound_smiles)
   
   Draw.MolToFile(m,'mol.png')
+
+  with open('mol.png', 'rb') as f:
+      st.download_button('Descargar 2D (PNG)', f, file_name='mol.png', mime='image/png')
+
   c1,c2=st.columns(2)
   with c1:
     st.write('Molecule 2D :smiley:')
