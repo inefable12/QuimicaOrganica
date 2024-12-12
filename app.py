@@ -122,10 +122,10 @@ def page3():
 ###################################################################    
 
 page_names_to_funcs = {
-  "Nombre común": Home,
-  "SMILES": page2,
+  "Nombre común a 2D": Home,
+  "SMILES a 2D": page2,
   "Vista 3D": page3,
 }
 
-selected_page = st.sidebar.selectbox("Tipo de Convertidor", page_names_to_funcs.keys())
+selected_page = st.sidebar.selectbox("Tipo de operación", page_names_to_funcs.keys())
 page_names_to_funcs[selected_page]()
