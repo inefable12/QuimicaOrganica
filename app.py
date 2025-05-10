@@ -109,7 +109,7 @@ def page3():
     mol_3d = Chem.MolFromSmiles(compound_smiles)
     mol_3d = Chem.AddHs(mol_3d)
     AllChem.EmbedMolecule(mol_3d)
-    AllChem.MMFFOptimizeMolecule(mol_3d, maxIters=20000)
+    AllChem.MMFFOptimizeMolecule(mol_3d, maxIters=30000)
     mol_block = Chem.MolToMolBlock(mol_3d)
     with open('mol3d.mol', 'w') as f:
         f.write(mol_block)
