@@ -82,7 +82,7 @@ def page3():
       mol = Chem.MolFromSmiles(smi)
       mol = Chem.AddHs(mol)
       AllChem.EmbedMolecule(mol)
-      AllChem.MMFFOptimizeMolecule(mol, maxIters=200)
+      AllChem.MMFFOptimizeMolecule(mol, maxIters=20000)
       mblock = Chem.MolToMolBlock(mol)
   
       view = py3Dmol.view(width=350, height=350)
