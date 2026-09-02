@@ -1,149 +1,189 @@
 import streamlit as st
-from pubchempy import get_compounds, Compound
-import sys
-import pubchempy as pcp
-
-import streamlit.components.v1 as components
+import subprocess
+import tempfile
+import os
+import requests
 import py3Dmol
-from stmol import showmol
-from rdkit import Chem
-from rdkit.Chem import Draw
-from rdkit.Chem import AllChem
+import streamlit.components.v1 as components
 
-##############
-st.sidebar.image("img/gpx4.png",
-                 caption="Jesus Alvarado-Huayhuaz")
+# Configuración de la página (Debe ser la primera orden de Streamlit)
+st.set_page_config(page_title="Preparador de Proteínas", page_icon="🧬")
 
-#############################Pagina 1############################## 
+############## PERSONALIZACIÓN DE LA BARRA LATERAL ##############
+try:
+    st.sidebar.image("img/logo.png", caption="Dr. Jesus Alvarado-Huayhuaz")
+except Exception:
+    pass
 
-def Home():
-    st.header('De nombre común a 2D :cat:', divider='rainbow')
-    st.sidebar.markdown("# Nombre clásico:")
-    st.sidebar.markdown("Trivial name, non-systematic name for a chemical substance, son otras denominaciones en inglés")
+try:
+    st.sidebar.image("https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZjJtM3R2MmE5NXZ0YnNscHB6NmJzZHJvOTF4eTR3Znd1ZWpsZWN2ayZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/f9SgDMEBslfqTPWoIM/giphy.gif", width=400)
+except Exception:
+    pass
 
-    entrada = st.text_input("Escribe el nombre común en inglés:", "glucose")
+st.markdown("""
+<style>
+    [data-testid="stSidebar"] {
+        background-color: #240434;
+    }
+</style>
+""", unsafe_allow_html=True)
+#################################################################
+
+def clean_pdb(pdb_content):
+    """
+    Filtra el contenido del PDB crudo. 
+    Elimina ligandos cocristalizados, moléculas de agua y heteroátomos (HETATM).
+    """
+    cleaned_lines = []
+    for line in pdb_content.splitlines():
+        if line.startswith("HETATM") or line.startswith("CONECT"):
+            continue
+        cleaned_lines.append(line)
+    return "\n".join(cleaned_lines)
+
+def render_receptor(pdbqt_string, box_params=None, show_axes=False):
+    """
+    Configura y renderiza el visor 3D forzando adaptabilidad al contenedor para que quede centrado.
+    Dibuja el Grid Box y los Ejes Coordenados si se solicita.
+    """
+    view = py3Dmol.view(width=800, height=500)
+    view.addModel(pdbqt_string, 'pdb')
+    view.setStyle({'cartoon': {'color': 'spectrum'}, 'stick': {'radius': 0.1}})
     
-    st.markdown("### IUPAC")  
-    nombreiupac = pcp.get_compounds(entrada,'name')
-    st.text(nombreiupac[0].iupac_name)
+    # Dibujar la caja de búsqueda
+    if box_params:
+        cx, cy, cz, sx, sy, sz = box_params
+        view.addBox({
+            'center': {'x': cx, 'y': cy, 'z': cz},
+            'dimensions': {'w': sx, 'h': sy, 'd': sz},
+            'color': 'red',
+            'wireframe': True
+        })
     
-    st.markdown("### SMILES Isomérico")
-    smilesisomerico = get_compounds(entrada, 'name')
-    st.text(smilesisomerico[0].isomeric_smiles)
-
-    st.markdown("### Masa molecular (g/mol)")
-    masamolecular = get_compounds(entrada, 'name')
-    st.text(masamolecular[0].exact_mass)
-  
-    st.markdown("### Coeficiente de partición")
-    coeficientedeparticion = get_compounds(entrada, 'name')
-    st.text(coeficientedeparticion[0].xlogp)
-
-    st.markdown("### PubChem ID")
-    id_pubchem = pcp.get_compounds(entrada, 'name')
-    st.text(id_pubchem)
-
-    st.markdown("### Representación simplificada")
-    m0 = Chem.MolFromSmiles(smilesisomerico[0].isomeric_smiles)    
-    Draw.MolToFile(m0,'mol0.png')
-    #st.pyplot()
-    st.write('Molecule 2D :smiley:')
-    st.image('mol0.png')
-
-#############################Pagina 2############################## 
-
-def page2():
-    st.header('De SMILES a 2D :smiley:', divider='rainbow')
-    st.sidebar.markdown("# Simplified Molecular Input Line Entry System")
-    st.sidebar.markdown("Sistema de introducción molecular lineal simplificada")
+    # Dibujar los Ejes X (Rojo), Y (Verde), Z (Azul) desde el origen (0,0,0)
+    if show_axes:
+        # Eje X
+        view.addArrow({'start': {'x': 0, 'y': 0, 'z': 0}, 'end': {'x': 20, 'y': 0, 'z': 0}, 'color': 'red', 'radius': 0.2})
+        view.addLabel("X", {'position': {'x': 22, 'y': 0, 'z': 0}, 'fontColor': 'white', 'backgroundColor': 'red'})
+        
+        # Eje Y
+        view.addArrow({'start': {'x': 0, 'y': 0, 'z': 0}, 'end': {'x': 0, 'y': 20, 'z': 0}, 'color': 'green', 'radius': 0.2})
+        view.addLabel("Y", {'position': {'x': 0, 'y': 22, 'z': 0}, 'fontColor': 'white', 'backgroundColor': 'green'})
+        
+        # Eje Z
+        view.addArrow({'start': {'x': 0, 'y': 0, 'z': 0}, 'end': {'x': 0, 'y': 0, 'z': 20}, 'color': 'blue', 'radius': 0.2})
+        view.addLabel("Z", {'position': {'x': 0, 'y': 0, 'z': 22}, 'fontColor': 'white', 'backgroundColor': 'blue'})
+        
+    view.zoomTo()
     
-    entrada = st.text_input("Escribe el nombre SMILES: ", "C1=CC2=C(C3=C(C=CC=N3)C=C2)N=C1")
-    st.markdown("### PubChem ID:")
-    identificador = pcp.get_compounds(entrada, 'smiles')
-    st.text(identificador)
+    # Renderizado HTML nativo
+    components.html(view._make_html(), height=500)
 
-    st.markdown("### Nombre IUPAC")  
-    nombreiupac = pcp.get_compounds(entrada,'smiles')
-    st.text(nombreiupac[0].iupac_name)
+st.title("Preparación de Proteínas (PDB a PDBQT)")
+st.markdown("""
+Esta herramienta utiliza el motor nativo de **MGLTools** para añadir hidrógenos, calcular cargas de Gasteiger y asignar los tipos de átomos de AutoDock.
+""")
 
-    st.markdown("### Representación simplificada")
-    m1 = Chem.MolFromSmiles(entrada)    
-    Draw.MolToFile(m1,'mol1.png')
-    st.write('Molecule 2D :smiley:')
-    st.image('mol1.png')
-  
-#############################Pagina 3##############################    
+# Interfaz con pestañas
+tab_subida, tab_descarga = st.tabs([
+    "📁 Subir Archivo PDB (Recomendado)", 
+    "⬇️ Descargar desde PDB (No recomendable)"
+])
 
-def page3():
-  st.header('De SMILES a visualización 3D 🍫', divider='rainbow')
-  st.sidebar.markdown("# 1D 🖙 3D")
-  st.sidebar.markdown("Generación de estructura tridimensional a partir del código SMILES")
-  def showm(smi, style='stick'):
-      mol = Chem.MolFromSmiles(smi)
-      mol = Chem.AddHs(mol)
-      AllChem.EmbedMolecule(mol)
-      AllChem.MMFFOptimizeMolecule(mol, maxIters=200)
-      mblock = Chem.MolToMolBlock(mol)
-  
-      view = py3Dmol.view(width=350, height=350)
-      view.addModel(mblock, 'mol')
-      view.setStyle({style:{}})
-      view.zoomTo()
-      showmol(view)
-  
-  compound_smiles=st.text_input('Ingresa tu código SMILES','FCCC(=O)[O-]')
-  m = Chem.MolFromSmiles(compound_smiles)
-  
-  Draw.MolToFile(m,'mol.png')
+pdb_content_raw = None
+nombre_archivo = "receptor"
 
-  c1,c2=st.columns(2)
-  with c1:
-    st.write('Molecule 2D :smiley:')
-    st.image('mol.png')
-    #botón de descarga 
-    with open('mol.png', 'rb') as f:
-        st.download_button('Descargar 2D (en formato PNG)', f, file_name='mol.png', mime='image/png')
-  with c2:
-    st.write('Molecule 3D :frog:')
-    showm(compound_smiles)
-    mol_3d = Chem.MolFromSmiles(compound_smiles)
-    mol_3d = Chem.AddHs(mol_3d)
-    AllChem.EmbedMolecule(mol_3d)
-    AllChem.MMFFOptimizeMolecule(mol_3d, maxIters=200)
-    mol_block = Chem.MolToMolBlock(mol_3d)
-    with open('mol3d.mol', 'w') as f:
-        f.write(mol_block)
-    #botón de descarga 
-    with open('mol3d.mol', 'rb') as f:
-      st.download_button('Descargar 3D (en formato MOL)', f, file_name='mol3d.mol', mime='chemical/x-mdl-molfile')
-      # ------ Generar archivo XYZ --------
-    # Función para convertir la molécula en formato XYZ
-    def mol_to_xyz(mol):
-        conf = mol.GetConformer()
-        n_atoms = mol.GetNumAtoms()
-        xyz = f"{n_atoms}\nGenerated by RDKit\n"
-        for i in range(n_atoms):
-            atom = mol.GetAtomWithIdx(i)
-            pos = conf.GetAtomPosition(i)
-            xyz += f"{atom.GetSymbol()} {pos.x:.4f} {pos.y:.4f} {pos.z:.4f}\n"
-        return xyz
-    # Crear el contenido XYZ
-    xyz_content = mol_to_xyz(mol_3d)
-    # Guardarlo en un archivo
-    with open('mol3d.xyz', 'w') as f:
-        f.write(xyz_content)
-    # Botón de descarga para el XYZ
-    with open('mol3d.xyz', 'rb') as f:
-        st.download_button('Descargar 3D (en formato XYZ)', f, file_name='mol3d.xyz', mime='chemical/x-xyz')
-################################################################### 
-##########################Configuracion############################    
-###################################################################    
+# --- PESTAÑA 1: SUBIDA MANUAL (RECOMENDADA) ---
+with tab_subida:
+    st.info("Recomendado: Sube un archivo PDB que ya hayas inspeccionado y curado visualmente (reparación de loops, selección de cadenas, etc.).")
+    uploaded_file = st.file_uploader("Seleccionar archivo PDB local", type="pdb")
+    
+    if uploaded_file is not None:
+        pdb_content_raw = uploaded_file.getvalue().decode("utf-8")
+        nombre_archivo = uploaded_file.name.split('.')[0]
+        pdb_content_raw = clean_pdb(pdb_content_raw)
 
-page_names_to_funcs = {
-  "Nombre común a 2D": Home,
-  "SMILES a 2D": page2,
-  "Vista 3D": page3,
-}
+# --- PESTAÑA 2: DESCARGA DESDE PDB (NO RECOMENDABLE) ---
+with tab_descarga:
+    st.warning("⚠️ **No recomendable:** La descarga directa automatizada remueve heteroátomos y ligandos a ciegas. No permite reparar residuos faltantes ni seleccionar estados conformacionales específicos, lo cual es crítico para un docking riguroso.")
+    
+    pdb_id = st.text_input("Ingrese el identificador PDB (Ej. 1HSG):", max_chars=4).upper()
+    
+    if st.button("Descargar y Procesar"):
+        if len(pdb_id) == 4:
+            with st.spinner(f"Obteniendo {pdb_id} desde el Protein Data Bank..."):
+                url = f"https://files.rcsb.org/download/{pdb_id}.pdb"
+                response = requests.get(url)
+                
+                if response.status_code == 200:
+                    st.success(f"Estructura {pdb_id} obtenida correctamente.")
+                    nombre_archivo = pdb_id
+                    pdb_content_raw = clean_pdb(response.text)
+                else:
+                    st.error("No se pudo encontrar el identificador PDB en el servidor.")
+        else:
+            st.error("El identificador PDB debe contener exactamente 4 caracteres.")
 
-selected_page = st.sidebar.selectbox("Tipo de operación", page_names_to_funcs.keys())
-page_names_to_funcs[selected_page]()
+# --- PROCESAMIENTO IN SILICO ---
+if pdb_content_raw is not None:
+    with tempfile.TemporaryDirectory() as tmpdir:
+        input_pdb = os.path.join(tmpdir, f"{nombre_archivo}_input.pdb")
+        output_pdbqt = os.path.join(tmpdir, f"{nombre_archivo}.pdbqt")
+
+        with open(input_pdb, "w") as f:
+            f.write(pdb_content_raw)
+
+        with st.spinner("Preparando receptor con MGLTools..."):
+            command = [
+                "prepare_receptor4", 
+                "-r", input_pdb, 
+                "-o", output_pdbqt, 
+                "-A", "hydrogens",
+                "-U", "waters" 
+            ]
+            result = subprocess.run(command, capture_output=True, text=True)
+
+        if os.path.exists(output_pdbqt) and os.path.getsize(output_pdbqt) > 0:
+            st.success("¡Estructura preparada con éxito!")
+            
+            with open(output_pdbqt, "r") as f:
+                pdbqt_content = f.read()
+
+            st.download_button(
+                label="📥 Descargar Receptor (PDBQT)",
+                data=pdbqt_content,
+                file_name=f"{nombre_archivo}_preparado.pdbqt",
+                mime="text/plain",
+                type="primary"
+            )
+            
+            with st.expander("Vista previa del texto PDBQT"):
+                st.code(pdbqt_content[:1500] + "\n...\n", language="text")
+            
+            # --- CONFIGURACIÓN DEL GRID BOX (AUTODOCK VINA) ---
+            st.markdown("### 🎯 Configuración del Grid Box (AutoDock Vina)")
+            st.write("Define las coordenadas del centroide y el tamaño de las aristas (Spacing = 1 Å).")
+            
+            col_x, col_y, col_z = st.columns(3)
+            with col_x:
+                cx = st.number_input("Centro X", value=0.0, step=1.0)
+                sx = st.number_input("Tamaño X", value=20.0, min_value=1.0, step=1.0)
+            with col_y:
+                cy = st.number_input("Centro Y", value=0.0, step=1.0)
+                sy = st.number_input("Tamaño Y", value=20.0, min_value=1.0, step=1.0)
+            with col_z:
+                cz = st.number_input("Centro Z", value=0.0, step=1.0)
+                sz = st.number_input("Tamaño Z", value=20.0, min_value=1.0, step=1.0)
+            
+            box_parameters = (cx, cy, cz, sx, sy, sz)
+            
+            st.markdown("### Visualización 3D Interactiva")
+            
+            # Control para encender/apagar los ejes
+            mostrar_ejes = st.checkbox("Mostrar ejes coordenados (Origen 0,0,0)", value=True)
+            
+            render_receptor(pdbqt_content, box_params=box_parameters, show_axes=mostrar_ejes)
+                
+        else:
+            st.error("Falló la conversión. Revisa el registro del sistema:")
+            st.code(result.stderr or result.stdout, language="bash")
