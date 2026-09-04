@@ -135,7 +135,43 @@ def page3():
     # Botón de descarga para el XYZ
     with open('mol3d.xyz', 'rb') as f:
         st.download_button('Descargar 3D (en formato XYZ)', f, file_name='mol3d.xyz', mime='chemical/x-xyz')
-    
+
+        # ------ Generar archivo PDBQT con Open Babel --------
+
+    import subprocess
+
+    try:
+        resultado = subprocess.run(
+            [
+                "obabel",
+                "mol3d.mol",
+                "-O",
+                "mol3d.pdbqt"
+            ],
+            capture_output=True,
+            text=True
+        )
+
+        if resultado.returncode == 0:
+
+            with open("mol3d.pdbqt", "rb") as f:
+                pdbqt_data = f.read()
+
+            st.download_button(
+                "Descargar 3D (en formato PDBQT)",
+                pdbqt_data,
+                file_name="mol3d.pdbqt",
+                mime="text/plain"
+            )
+
+        else:
+            st.error(
+                "Error al generar el PDBQT con Open Babel: "
+                + resultado.stderr
+            )
+
+    except Exception as e:
+        st.error(f"No se pudo ejecutar Open Babel: {e}")
 ################################################################### 
 ##########################Configuracion############################    
 ###################################################################    
