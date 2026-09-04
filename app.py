@@ -9,7 +9,7 @@ from stmol import showmol
 from rdkit import Chem
 from rdkit.Chem import Draw
 from rdkit.Chem import AllChem
-from meeko import MoleculePreparation, PDBQTWriterLegacy
+
 ##############
 st.sidebar.image("img/gpx4.png",
                  caption="Jesus Alvarado-Huayhuaz")
@@ -136,29 +136,6 @@ def page3():
     with open('mol3d.xyz', 'rb') as f:
         st.download_button('Descargar 3D (en formato XYZ)', f, file_name='mol3d.xyz', mime='chemical/x-xyz')
     
-# ------ Generar archivo PDBQT para AutoDock Vina --------
-try:
-    # Preparar molécula para AutoDock Vina mediante Meeko
-    preparator = MoleculePreparation()
-    mol_setup = preparator.prepare(mol_3d)[0]
-
-    # Convertir la preparación a formato PDBQT
-    pdbqt_string = PDBQTWriterLegacy.write_string(mol_setup)
-
-    # Guardar archivo PDBQT
-    with open('mol3d.pdbqt', 'w') as f:
-        f.write(pdbqt_string)
-
-    # Botón de descarga
-    st.download_button(
-        'Descargar ligando (PDBQT para AutoDock Vina)',
-        pdbqt_string,
-        file_name='mol3d.pdbqt',
-        mime='text/plain'
-    )
-
-except Exception as e:
-    st.error(f'No fue posible generar el archivo PDBQT: {e}')
 ################################################################### 
 ##########################Configuracion############################    
 ###################################################################    
